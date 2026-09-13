@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.DS_Store
+*.bak
+*.bak_*
+_backup_*/
+latex/

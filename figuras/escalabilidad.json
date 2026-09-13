@@ -1,0 +1,112 @@
+[
+  {
+    "tipo": "armchair",
+    "nq": 2,
+    "N": 2,
+    "nparams": 12,
+    "npauli": 3,
+    "err_medio": 6.230134230338552e-07,
+    "err_max": 3.6223351715936047e-06,
+    "evals": 2566,
+    "tiempo_s": 2.6
+  },
+  {
+    "tipo": "armchair",
+    "nq": 3,
+    "N": 4,
+    "nparams": 18,
+    "npauli": 5,
+    "err_medio": 1.657198184403955e-05,
+    "err_max": 0.0003297972180602571,
+    "evals": 7315,
+    "tiempo_s": 10.5
+  },
+  {
+    "tipo": "armchair",
+    "nq": 4,
+    "N": 8,
+    "nparams": 24,
+    "npauli": 9,
+    "err_medio": 7.451381852965502e-05,
+    "err_max": 0.00023849158807642823,
+    "evals": 12207,
+    "tiempo_s": 25.6
+  },
+  {
+    "tipo": "armchair",
+    "nq": 5,
+    "N": 16,
+    "nparams": 30,
+    "npauli": 17,
+    "err_medio": 0.011337797797441389,
+    "err_max": 0.031678464122115724,
+    "evals": 15823,
+    "tiempo_s": 54.9
+  },
+  {
+    "tipo": "armchair",
+    "nq": 6,
+    "N": 32,
+    "nparams": 36,
+    "npauli": 33,
+    "err_medio": 0.01505609107609916,
+    "err_max": 0.035514950215147945,
+    "evals": 19170,
+    "tiempo_s": 90.9
+  },
+  {
+    "tipo": "zigzag",
+    "nq": 2,
+    "N": 2,
+    "nparams": 12,
+    "npauli": 4,
+    "err_medio": 1.5769315302271198e-07,
+    "err_max": 7.568845197258867e-07,
+    "evals": 3617,
+    "tiempo_s": 4.7
+  },
+  {
+    "tipo": "zigzag",
+    "nq": 3,
+    "N": 4,
+    "nparams": 18,
+    "npauli": 8,
+    "err_medio": 0.0004066051341228469,
+    "err_max": 0.005688997591789979,
+    "evals": 11427,
+    "tiempo_s": 23.3
+  },
+  {
+    "tipo": "zigzag",
+    "nq": 4,
+    "N": 8,
+    "nparams": 24,
+    "npauli": 16,
+    "err_medio": 0.017610851909933254,
+    "err_max": 0.15350942955590563,
+    "evals": 30150,
+    "tiempo_s": 94.2
+  },
+  {
+    "tipo": "zigzag",
+    "nq": 5,
+    "N": 16,
+    "nparams": 30,
+    "npauli": 32,
+    "err_medio": 0.016762181375113226,
+    "err_max": 0.05772206182257711,
+    "evals": 60768,
+    "tiempo_s": 316.4
+  },
+  {
+    "tipo": "zigzag",
+    "nq": 6,
+    "N": 32,
+    "nparams": 36,
+    "npauli": 64,
+    "err_medio": 0.0069879248206213985,
+    "err_max": 0.03601522459205331,
+    "evals": 121074,
+    "tiempo_s": 871.4
+  }
+]
