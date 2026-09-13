@@ -49,6 +49,7 @@ To recompute the underlying data, run the corresponding generator; each writes t
 | Nanoribbons under noise | `gen_ruido.py` | `aer_noise` | ~1 h |
 | Scalability | `gen_escalabilidad.py` | `statevector` | ~1 h |
 | Containment, 3 qubits | `gen_containment.py` | `aer_noise` | ~25 min per ribbon |
+| Ansatz-depth sweep | `gen_reps.py` | `statevector` + `aer_noise` | ~1.5 h |
 
 ## Execution modes
 
