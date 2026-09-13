@@ -230,6 +230,38 @@ def figura_escalabilidad():
     print("guardada:", out)
 
 
+
+
+# ---------------- Profundidad del ansatz (barrido de repeticiones) ----------------
+def figura_reps():
+    """Error frente al número de repeticiones del ansatz, en simulación ideal y con ruido.
+    Ilustra la tensión del régimen NISQ: en `statevector` el error baja monótonamente al
+    profundizar el circuito; con ruido de dispositivo la mejora se agota y se revierte."""
+    fn = os.path.join(FIGDIR, "reps_zGNR_4q.json")
+    tabla = sorted(json.load(open(fn, encoding='utf-8')), key=lambda f: f["reps"])
+    reps = [f["reps"] for f in tabla]
+    fig, ax = plt.subplots(figsize=(5.6, 4.3))
+    ax.semilogy(reps, [f["err_sv"] for f in tabla], 'o-', color='#1f77b4', lw=1.6, ms=6,
+                label=_L('Simulación ideal', 'Ideal simulation'))
+    ax.semilogy(reps, [f["err_ideal_opt"] for f in tabla], '^--', color='#ff7f0e', lw=1.6, ms=6,
+                label=_L('Con ruido: solo optimización', 'With noise: optimization only'))
+    ax.semilogy(reps, [f["err_medido"] for f in tabla], 's-', color='#d62728', lw=1.6, ms=6,
+                label=_L('Con ruido: energía medida', 'With noise: measured energy'))
+    ax.set_xticks(reps)
+    ax.set_xlabel(_L("Repeticiones del ansatz", "Ansatz repetitions"))
+    ax.set_ylabel(_L(r"Error medio $|E_{\rm VQD}-E_{\rm exacta}|/t$",
+                     r"Mean error $|E_{\rm VQD}-E_{\rm exact}|/t$"))
+    ax.grid(True, which='both', alpha=0.25)
+    ax.legend(fontsize=8, framealpha=0.9)
+    # eje superior: puertas de dos cubits, que es lo que paga el circuito al profundizar
+    sec = ax.secondary_xaxis('top')
+    sec.set_xticks(reps); sec.set_xticklabels([str(f["cx"]) for f in tabla])
+    sec.set_xlabel(_L("Puertas CX del ansatz", "Ansatz CX gates"), fontsize=9)
+    plt.tight_layout()
+    out = os.path.join(OUT, "fig_reps.png")
+    plt.savefig(out, dpi=200, bbox_inches='tight'); plt.close()
+    print("guardada:", out)
+
 # ---------------- Contención en subespacios (subspace containment) ----------------
 # Etiquetas de los estados VQD reconstruidos (fundamental + excitados)
 _ETIQ_ESTADO = [_L('Fundamental', 'Ground'), _L('1er excitado', '1st excited'),
@@ -620,4 +652,6 @@ if __name__ == "__main__":
     figura_hardware_monocapa()
     figura_containment_monocapa_3reg()
     figura_containment_nanocinta_3reg()
+    if os.path.exists(os.path.join(FIGDIR, "reps_zGNR_4q.json")):
+        figura_reps()
     # figura_containment_monocapa()  # (vista bandas+contención de un solo régimen; no usada en el artículo)
