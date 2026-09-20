@@ -40,6 +40,16 @@
     "tiempo_s": 8976.0
   },
   {
+    "tipo": "armchair",
+    "nq": 6,
+    "N": 32,
+    "err_medido": 0.05516887234752228,
+    "err_medido_max": 0.16487008603408837,
+    "err_ideal_opt": 0.01899667697696606,
+    "evals": 57428,
+    "tiempo_s": 8862.7
+  },
+  {
     "tipo": "zigzag",
     "nq": 2,
     "N": 2,
@@ -78,5 +88,15 @@
     "err_ideal_opt": 0.027036139618089726,
     "evals": 57428,
     "tiempo_s": 7720.0
+  },
+  {
+    "tipo": "zigzag",
+    "nq": 6,
+    "N": 32,
+    "err_medido": 0.06135928365685585,
+    "err_medido_max": 0.22490092596380795,
+    "err_ideal_opt": 0.02068864315421471,
+    "evals": 57428,
+    "tiempo_s": 9878.4
   }
 ]
