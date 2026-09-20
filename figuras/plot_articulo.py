@@ -234,33 +234,51 @@ def figura_escalabilidad():
 
 # ---------------- Profundidad del ansatz (barrido de repeticiones) ----------------
 def figura_reps():
-    """Error frente al número de repeticiones del ansatz, en simulación ideal y con ruido.
-    Ilustra la tensión del régimen NISQ: en `statevector` el error baja monótonamente al
-    profundizar el circuito; con ruido de dispositivo la mejora se agota y se revierte."""
+    """Error frente al número de repeticiones del ansatz. Eje principal (escala LINEAL): los dos
+    resultados con ruido, que es donde está el mensaje —la energía medida empeora con la
+    profundidad mientras la ideal de esos mismos parámetros mejora—. La simulación ideal, que
+    barre tres órdenes y medio y aplastaría a las otras dos, va en un inset logarítmico."""
     fn = os.path.join(FIGDIR, "reps_zGNR_4q.json")
     tabla = sorted(json.load(open(fn, encoding='utf-8')), key=lambda f: f["reps"])
     reps = [f["reps"] for f in tabla]
-    fig, ax = plt.subplots(figsize=(5.6, 4.3))
-    ax.semilogy(reps, [f["err_sv"] for f in tabla], 'o-', color='#1f77b4', lw=1.6, ms=6,
-                label=_L('Simulación ideal', 'Ideal simulation'))
-    ax.semilogy(reps, [f["err_ideal_opt"] for f in tabla], '^--', color='#ff7f0e', lw=1.6, ms=6,
-                label=_L('Con ruido: solo optimización', 'With noise: optimization only'))
-    ax.semilogy(reps, [f["err_medido"] for f in tabla], 's-', color='#d62728', lw=1.6, ms=6,
-                label=_L('Con ruido: energía medida', 'With noise: measured energy'))
+    medido = [f["err_medido"] for f in tabla]
+    ideal_opt = [f["err_ideal_opt"] for f in tabla]
+    sv = [f["err_sv"] for f in tabla]
+
+    fig, ax = plt.subplots(figsize=(5.8, 4.5))
+    ax.plot(reps, medido, 's-', color='#d62728', lw=1.8, ms=7,
+            label=_L('Con ruido: energía medida', 'With noise: measured energy'))
+    ax.plot(reps, ideal_opt, '^--', color='#ff7f0e', lw=1.8, ms=7,
+            label=_L('Con ruido: solo optimización', 'With noise: optimization only'))
     ax.set_xticks(reps)
+    ax.set_xlim(reps[0] - 0.25, reps[-1] + 0.25)
     ax.set_xlabel(_L("Repeticiones del ansatz", "Ansatz repetitions"))
     ax.set_ylabel(_L(r"Error medio $|E_{\rm VQD}-E_{\rm exacta}|/t$",
                      r"Mean error $|E_{\rm VQD}-E_{\rm exact}|/t$"))
-    ax.grid(True, which='both', alpha=0.25)
-    ax.legend(fontsize=8, framealpha=0.9)
+    ax.grid(True, alpha=0.25)
+    ax.legend(fontsize=8, framealpha=0.9, loc='lower left')
+    y0, y1 = min(ideal_opt + medido), max(ideal_opt + medido)
+    ax.set_ylim(y0 - 0.14 * (y1 - y0), y1 + 0.42 * (y1 - y0))
     # eje superior: puertas de dos cubits, que es lo que paga el circuito al profundizar
     sec = ax.secondary_xaxis('top')
     sec.set_xticks(reps); sec.set_xticklabels([str(f["cx"]) for f in tabla])
     sec.set_xlabel(_L("Puertas CX del ansatz", "Ansatz CX gates"), fontsize=9)
+
+    # --- inset: simulación ideal, en logarítmica (barre 3 órdenes y medio) ---
+    axi = ax.inset_axes([0.09, 0.62, 0.40, 0.34])
+    axi.semilogy(reps, sv, 'o-', color='#1f77b4', lw=1.4, ms=4)
+    axi.set_xticks(reps)
+    axi.tick_params(labelsize=7)
+    axi.grid(True, which='both', alpha=0.25)
+    axi.set_title(_L('Simulación ideal', 'Ideal simulation'), fontsize=8, pad=3)
+    axi.set_xlabel(_L('repeticiones', 'repetitions'), fontsize=7, labelpad=1)
+    axi.patch.set_alpha(0.95)
+
     plt.tight_layout()
     out = os.path.join(OUT, "fig_reps.png")
     plt.savefig(out, dpi=200, bbox_inches='tight'); plt.close()
     print("guardada:", out)
+
 
 # ---------------- Contención en subespacios (subspace containment) ----------------
 # Etiquetas de los estados VQD reconstruidos (fundamental + excitados)
